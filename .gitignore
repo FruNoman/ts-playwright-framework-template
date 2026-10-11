@@ -1,0 +1,9 @@
+node_modules/
+build/
+playwright-report/
+test-results/
+.env.local
+.claude/scratch/
+.claude/settings.local.json
+.playwright-mcp/
+.idea/

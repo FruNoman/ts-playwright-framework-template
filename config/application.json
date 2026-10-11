@@ -1,0 +1,9 @@
+{
+  "//": "Defaults for every run. Layered, later wins: config/application.json → config/application-ci.json (CI=true) → resources/env/<env>.json → env vars (TEST_ENV, BASE_URL, RUNNER, BROWSER, HEADLESS, PLAYWRIGHT_SERVER_URL, TIMEOUT, TESTS_THREADS).",
+  "env": "dev",
+  "runner": "local",
+  "browser": { "name": "chromium", "headless": true, "viewport": [1440, 900] },
+  "server": { "url": "ws://localhost:3000/" },
+  "timeouts": { "action": 10, "navigation": 30 },
+  "data": { "dir": "resources/data" }
+}

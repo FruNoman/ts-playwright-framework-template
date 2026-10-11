@@ -1,0 +1,26 @@
+{
+  "name": "ts-playwright-framework-template",
+  "version": "0.1.0",
+  "private": true,
+  "description": "UI test automation template: TypeScript + Playwright Test \u2014 fixtures, page objects over locators, data from JSON with zod, traces on failure. DRAFT \u2014 made real on lab12.",
+  "type": "module",
+  "scripts": {
+    "test": "playwright test",
+    "check": "tsc --noEmit && eslint . && prettier --check .",
+    "format": "prettier --write . && eslint --fix .",
+    "browsers": "playwright install chromium"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@playwright/test": "1.64.0",
+    "@types/node": "24.19.2",
+    "eslint": "10.12.0",
+    "prettier": "3.9.10",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.71.1",
+    "zod": "4.6.6"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

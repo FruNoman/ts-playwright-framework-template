@@ -1,0 +1,4 @@
+{
+  "//": "ONBOARD: the app's URL (it points at Selenium's public test pages, used by the template's example); another environment: resources/env/<name>.json with the same keys, TEST_ENV=<name>. URLs and non-secret settings only — logins are test data (resources/data).",
+  "base": { "url": "https://www.selenium.dev/selenium/web/" }
+}

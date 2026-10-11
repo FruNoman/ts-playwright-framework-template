@@ -1,0 +1,12 @@
+# Browsers in a container — Playwright's answer to a Grid:
+#   docker compose -f docker-compose.playwright.yml up -d && RUNNER=server npx playwright test
+# The tag and the npx version = @playwright/test in package.json: client and server must match.
+services:
+  playwright:
+    image: mcr.microsoft.com/playwright:v1.64.0-noble
+    command: npx -y playwright@1.64.0 run-server --port 3000 --host 0.0.0.0
+    init: true
+    restart: unless-stopped
+    ipc: host
+    ports:
+      - "${PLAYWRIGHT_PORT:-3000}:3000"

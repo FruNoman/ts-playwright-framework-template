@@ -1,0 +1,20 @@
+{
+  "extraKnownMarketplaces": {
+    "qa-automation-toolkit": { "source": { "source": "github", "repo": "FruNoman/qa-automation-toolkit" } }
+  },
+  "enabledPlugins": {
+    "qa-core@qa-automation-toolkit": true,
+    "qa-ts@qa-automation-toolkit": true
+  },
+  "permissions": {
+    "allow": [
+      "mcp__plugin_qa-core_playwright__*",
+      "mcp__plugin_qa-core_playwright__browser_run_code_unsafe",
+      "Bash(npx playwright test:*)",
+      "Bash(npm run check:*)",
+      "Bash(npm run test:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npx eslint:*)"
+    ]
+  }
+}

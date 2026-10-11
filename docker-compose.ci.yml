@@ -1,0 +1,16 @@
+# Exactly what CI runs, locally:
+#   docker compose -f docker-compose.playwright.yml -f docker-compose.ci.yml up --build \
+#     --abort-on-container-exit --exit-code-from tests
+services:
+  tests:
+    build: .
+    depends_on: [playwright]
+    environment:
+      - CI=true
+      - RUNNER=server
+      - PLAYWRIGHT_SERVER_URL=ws://playwright:3000/
+      - TESTS_THREADS=${TESTS_THREADS:-4}
+      - BASE_URL
+      - TEST_ENV
+    volumes:
+      - ./build:/workspace/build
