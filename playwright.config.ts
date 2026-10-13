@@ -38,6 +38,15 @@ export default defineConfig({
   projects: [
     {
       name: settings.browser.name,
+      grepInvert: /@switch/,
+      use: { ...devices[deviceOf[settings.browser.name]], viewport: { width, height } },
+    },
+    {
+      // tests that set an environment-wide switch (`@switch`): one at a time, each restores it
+      name: `${settings.browser.name}-switch`,
+      grep: /@switch/,
+      fullyParallel: false,
+      workers: 1,
       use: { ...devices[deviceOf[settings.browser.name]], viewport: { width, height } },
     },
   ],

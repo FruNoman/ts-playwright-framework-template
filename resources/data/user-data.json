@@ -1,0 +1,5 @@
+{
+  "//": "ONBOARD: one row per role the tests log in as — committed when the repo is private (the profile's decision), else this file per environment in resources/data/<env>/. Never real passwords of a shared account in a public repo.",
+  "admin": { "username": "admin@example.com", "password": "ONBOARD" },
+  "unknown": { "username": "nobody_{{uniqueTimestamp}}@example.com", "password": "wrong-password" }
+}
