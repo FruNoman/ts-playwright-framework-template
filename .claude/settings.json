@@ -14,7 +14,8 @@
       "Bash(npm run check:*)",
       "Bash(npm run test:*)",
       "Bash(npx tsc:*)",
-      "Bash(npx eslint:*)"
+      "Bash(npx eslint:*)",
+      "Bash(./scripts/walk-session.sh:*)"
     ]
   }
 }

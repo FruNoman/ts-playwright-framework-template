@@ -12,4 +12,5 @@ npx playwright test                # everything (TESTS_THREADS workers)
 npx playwright test --ui           # watch and debug
 docker compose -f docker-compose.playwright.yml up -d --wait && RUNNER=server npx playwright test
 npm run check                      # tsc + eslint + prettier
+./scripts/walk-session.sh <user>   # a session cookie for browser walks (ONBOARD: the app's login)
 ```

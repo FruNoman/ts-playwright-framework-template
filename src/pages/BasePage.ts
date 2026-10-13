@@ -11,7 +11,11 @@ import { settings } from "../config/settings.js";
 const escape = (text: string) => text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
 export abstract class BasePage {
-  /** the page's URL relative to base.url (no leading slash) */
+  /**
+   * the page's URL relative to base.url (no leading slash). A URL with an id: declare
+   * `protected readonly path: string` and set it in the constructor — a getter clashes with the field
+   * Playwright's TS transform emits ("Cannot set property path … which has only a getter", lab11 2026-10-13)
+   */
   protected abstract readonly path: string;
 
   constructor(protected readonly page: Page) {}
