@@ -1,0 +1,12 @@
+# The test image gets the sources only — never local secrets, deps or results.
+.git
+.env
+.env.*
+.claude
+.idea
+.mcp.json
+.playwright-mcp
+node_modules
+build
+playwright-report
+test-results

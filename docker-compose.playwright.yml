@@ -10,3 +10,15 @@ services:
     ipc: host
     ports:
       - "${PLAYWRIGHT_PORT:-3000}:3000"
+    # "Healthy" only once run-server listens: npx downloads it first, an earlier connect gets ECONNRESET
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "require('net').connect(3000, '127.0.0.1').on('connect', () => process.exit(0)).on('error', () => process.exit(1))",
+        ]
+      interval: 2s
+      timeout: 2s
+      retries: 60
