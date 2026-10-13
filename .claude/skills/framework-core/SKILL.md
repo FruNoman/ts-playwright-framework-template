@@ -17,7 +17,19 @@ fills in what a real app needs (login, API, cleanup, texts) and records it here.
 - A test takes its entry page and data as fixtures (`{ webFormPage, webFormData }`); every other
   page is a local returned by the action that leads to it.
 - Preconditions through the API: a fixture creates, `use`s, deletes after — also when the test
-  fails (ONBOARD: the app's API via `request` or a client in `src/api/`).
+  fails, and only what is still there to delete (check the state first). Fixtures set up in the
+  order of the test's arguments: a precondition the page must load comes before the page fixture.
+- **Login** (`src/auth/session.ts`, ONBOARD: the app's form): a raw-HTTP login, a session cached per
+  user and purpose; the `user` option puts the browser session's cookies into the context before
+  the first page (`test.use({ user: null })` = logged out); users in `resources/data/user-data.json`,
+  passwords as `Secret` (never printed).
+- **API** (`src/api/ApiClient.ts`): `ApiClient.as(user)` — its own session, the app's XHR headers,
+  zod-validated `getJson` / `postJson`; no REST route → `formFields` + `withValues` +
+  `submitForm` replay the app's own form (`src/api/htmlForm.ts`). Resource clients in
+  `src/api/<area>/`.
+- **An environment-wide switch**: the `switchVariant` option + its lazy auto fixture set it and
+  restore it; such tests carry `@switch` and run in the serial `<browser>-switch` project. An auto
+  fixture never depends on `page` or `api` (it would run for every test).
 - Soft checks: `expect.soft(value, "what").toBe(...)` per expectation; a hard `expect` for a
   precondition. Known bugs: `test.fail(true, "<the finding>")` — runs every time, a fix turns it
   red.
