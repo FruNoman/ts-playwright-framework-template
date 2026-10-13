@@ -69,9 +69,12 @@ export const test = base.extend<Options & Fixtures>({
   switchState: [
     async ({ switchVariant }, use) => {
       if (switchVariant === undefined) return use();
+      // restore only a change that was verified: a wrong read must not write on the way out (lab12
+      // 2026-10-14: a checkbox without `checked` read as OFF, the restore turned the switch OFF)
       const before = await readSwitch();
+      if (before === switchVariant) return use();
+      await setSwitch(switchVariant); // throws unless readSwitch() then returns the new value
       try {
-        await setSwitch(switchVariant);
         await use();
       } finally {
         await setSwitch(before);
@@ -82,7 +85,9 @@ export const test = base.extend<Options & Fixtures>({
 });
 
 // ONBOARD: the app's switch (a settings route through ApiClient); a project with several switches
-// keeps them in src/api/config/ and names the switch in the option
+// keeps them in src/api/config/ and names the switch in the option. Read the value where the app
+// itself uses it (a flag the pages render, a JSON setting) — not a form control a script fills in;
+// setSwitch reads it back and throws when the app didn't take it
 function readSwitch(): Promise<boolean> {
   return Promise.reject(new Error("ONBOARD: read the environment switch"));
 }
