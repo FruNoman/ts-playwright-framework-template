@@ -10,6 +10,6 @@ and `qa-ts` plugins of [qa-automation-toolkit](https://github.com/FruNoman/qa-au
 npm ci && npm run browsers         # once
 npx playwright test                # everything (TESTS_THREADS workers)
 npx playwright test --ui           # watch and debug
-docker compose -f docker-compose.playwright.yml up -d && RUNNER=server npx playwright test
+docker compose -f docker-compose.playwright.yml up -d --wait && RUNNER=server npx playwright test
 npm run check                      # tsc + eslint + prettier
 ```

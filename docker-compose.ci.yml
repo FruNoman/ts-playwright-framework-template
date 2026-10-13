@@ -4,7 +4,9 @@
 services:
   tests:
     build: .
-    depends_on: [playwright]
+    depends_on:
+      playwright:
+        condition: service_healthy
     environment:
       - CI=true
       - RUNNER=server
