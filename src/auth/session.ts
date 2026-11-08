@@ -2,14 +2,16 @@
  * The app's login over raw HTTP — the browser and the API start signed in, only the login-flow test
  * uses the form (qa-core:login-rules, qa-ts:login-strategies). Cookies are kept by hand in a plain
  * map, redirects followed by hand (`redirect: "manual"`): cookie-jar libraries rewrite or duplicate
- * cookies. Sessions are cached per user and purpose (browser / api — apart: one-shot flash messages)
- * for the worker, renewed after SESSION_TTL_MS. A test that logs out ends a cached session.
+ * cookies. Every call is logged (`loggedFetch`, src/api/apiLog.ts). Sessions are cached per user
+ * and purpose (browser / api — apart: one-shot flash messages) for the worker, renewed after
+ * SESSION_TTL_MS. A test that logs out ends a cached session.
  *
  * ONBOARD: the login of THIS app. The shape below is a server-rendered form with a CSRF field
  * (Laravel, proven on lab11): GET the form → its token, POST → a redirect NOT back to the login page =
  * signed in, GET the target once, GET a page for the CSRF token the app's XHRs send. Change the
  * paths, the field names, the success check and where the CSRF token comes from (or drop it).
  */
+import { loggedFetch } from "../api/apiLog.js";
 import { settings } from "../config/settings.js";
 import type { User } from "../data/users.js";
 
@@ -71,7 +73,7 @@ async function send(
   const cookie = Object.entries(jar)
     .map(([name, value]) => `${name}=${value}`)
     .join("; ");
-  const response = await fetch(url, {
+  const response = await loggedFetch(url, {
     ...init,
     redirect: "manual",
     headers: { ...(cookie ? { Cookie: cookie } : {}), Accept: "text/html" },

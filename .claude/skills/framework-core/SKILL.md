@@ -27,6 +27,13 @@ fills in what a real app needs (login, API, cleanup, texts) and records it here.
   zod-validated `getJson` / `postJson`; no REST route → `formFields` + `withValues` +
   `submitForm` replay the app's own form (`src/api/htmlForm.ts`). Resource clients in
   `src/api/<area>/`.
+- **API log** (`src/api/apiLog.ts`, the Java templates' layout): every HTTP call — each `ApiClient`
+  call, each fetch of the login (`loggedFetch`) — is one `console.info` message `INFO api`, a block
+  between two lines of 100 `_`: `REQUEST: <METHOD> <url>`, the headers, `form: name=value` lines
+  (a urlencoded body) or the pretty body (JSON at 4 spaces), `RESPONSE: <status> (<ms> ms)`, the
+  headers, the pretty body. Masked: `Authorization`, `Proxy-Authorization`, `Cookie`, `Set-Cookie`,
+  `X-API-Key` values and fields named like password / secret / token / api key → `***`; a body over
+  20 000 characters is cut. Any new HTTP goes through `logApiCall` too.
 - **An environment-wide switch**: the `switchVariant` option + its lazy auto fixture set it and
   restore it; such tests carry `@switch` and run in the serial `<browser>-switch` project. An auto
   fixture never depends on `page` or `api` (it would run for every test).
