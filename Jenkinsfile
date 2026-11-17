@@ -43,7 +43,7 @@ pipeline {
       publishHTML(target: [reportDir: 'build/reports/html', reportFiles: 'index.html',
                            reportName: 'Playwright report', keepAll: true,
                            alwaysLinkToLastBuild: true, allowMissing: true])
-      archiveArtifacts artifacts: 'build/test-results/artifacts/**', allowEmptyArchive: true
+      archiveArtifacts artifacts: 'build/test-results/junit.xml, build/test-results/artifacts/**', allowEmptyArchive: true
     }
   }
 }
